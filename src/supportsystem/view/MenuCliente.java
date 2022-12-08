@@ -5,8 +5,12 @@
  */
 package supportsystem.view;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import supportsystem.dao.ClienteDAO;
 import supportsystem.dao.ClienteDTO;
@@ -41,7 +45,7 @@ public class MenuCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnDeletarCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
@@ -70,10 +74,10 @@ public class MenuCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Deletar Cliente");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnDeletarCliente.setText("Deletar Cliente");
+        btnDeletarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnDeletarClienteActionPerformed(evt);
             }
         });
 
@@ -133,7 +137,7 @@ public class MenuCliente extends javax.swing.JFrame {
                     .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -150,7 +154,7 @@ public class MenuCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7)
+                        .addComponent(btnDeletarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,7 +171,7 @@ public class MenuCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -176,11 +180,27 @@ public class MenuCliente extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        DelCliente frame = new DelCliente();
-        LogController.createLog("Abrindo página de remoção de cliente", "I");
-        frame.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnDeletarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarClienteActionPerformed
+        int idClienteSelecionado;
+        int aprovacao;
+        aprovacao = JOptionPane.showConfirmDialog(null, "Deletar cliente selecionado?","Atenção!", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (tabelaClientes.getSelectedRow() != -1 && aprovacao == 0){
+            ClienteDAO clientedao = new ClienteDAO();
+            ClienteDTO clientedto = new ClienteDTO();
+            
+            idClienteSelecionado = (int) tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),0);
+            clientedto.setId_cliente(idClienteSelecionado);            
+
+            try {
+                clientedao.deleteCliente(clientedto);
+                JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
+                listarClientes();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao deletar cliente!");
+            }
+        }
+    }//GEN-LAST:event_btnDeletarClienteActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         LogController.createLog("Listando produtos", "I");
@@ -227,9 +247,9 @@ public class MenuCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnDeletarCliente;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -251,8 +271,7 @@ public class MenuCliente extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     lista.get(i).getId_cliente(),
                     lista.get(i).getNome_cliente(),
-                    lista.get(i).getId_tipo_cliente(),
-                });
+                    lista.get(i).getId_tipo_cliente(),});
             }
 
         } catch (Exception ex) {
