@@ -80,12 +80,12 @@ public class VendaDAO {
         DataBase db = new DataBase();
         Statement stmt = null;
         ResultSet rs = null;
-        
+
         ArrayList<VendaDTO> vendaXML = new ArrayList<>();
-        
+
         String myQuery = "SELECT * FROM venda where id_venda = " + vendadto.getId_venda();
-        
-        try {               
+
+        try {
             stmt = db.getConnection().createStatement();
             rs = stmt.executeQuery(myQuery);
 
@@ -112,6 +112,24 @@ public class VendaDAO {
         return CriarDocumentoXML.main(vendaXML);
         //preciso retornar um array contendo as informações da venda.
 
+    }
+
+    public ArrayList<VendaDTO> deleteVenda(VendaDTO vendadto) throws SQLException {
+        DataBase db = new DataBase();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            pstmt = db.getConnection().prepareStatement("delete from venda where id_venda = ?");
+            pstmt.setInt(1, vendadto.getId_venda());
+            pstmt.execute();
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            db.close();
+        }
+        return null;
     }
 
 }

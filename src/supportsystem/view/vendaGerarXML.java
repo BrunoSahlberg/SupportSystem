@@ -8,12 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import supportsystem.dao.ClienteDAO;
 import supportsystem.dao.ProdutoDAO;
 import supportsystem.dao.VendaDAO;
 import supportsystem.dao.VendaDTO;
 import supportsystem.dao.VendedorDAO;
+import supportsystem.dao.VendedorDTO;
 import supportsystem.logging.LogController;
 import supportsystem.models.Cliente;
 import supportsystem.models.Venda;
@@ -50,6 +52,7 @@ public class vendaGerarXML extends javax.swing.JFrame {
         btnGerarXML = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         cbxVenda = new javax.swing.JComboBox<>();
+        btnDeletarVenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Vendas");
@@ -111,6 +114,13 @@ public class vendaGerarXML extends javax.swing.JFrame {
             }
         });
 
+        btnDeletarVenda.setText("Deletar Venda");
+        btnDeletarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarVendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,14 +135,18 @@ public class vendaGerarXML extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cbxVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cbxVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)))
+                        .addGap(27, 27, 27))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnGerarXML)
-                        .addGap(44, 44, 44)))
-                .addGap(27, 27, 27))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnGerarXML, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDeletarVenda))
+                        .addGap(62, 62, 62))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +167,9 @@ public class vendaGerarXML extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cbxVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnGerarXML)))
+                        .addComponent(btnGerarXML)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeletarVenda)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
@@ -212,6 +228,28 @@ public class vendaGerarXML extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_cbxVendaAncestorAdded
+
+    private void btnDeletarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarVendaActionPerformed
+        int idVendaSelecionada;
+        int aprovacao;
+        aprovacao = JOptionPane.showConfirmDialog(null, "Deletar venda selecionada?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
+
+        if (tabelaVendas.getSelectedRow() != -1 && aprovacao == 0) {
+            VendaDAO vendadao = new VendaDAO();
+            VendaDTO vendadto = new VendaDTO();
+
+            idVendaSelecionada = (int) tabelaVendas.getValueAt(tabelaVendas.getSelectedRow(), 0);
+            vendadto.setId_venda(idVendaSelecionada);
+
+            try {
+                vendadao.deleteVenda(vendadto);
+                JOptionPane.showMessageDialog(null, "Venda deletada com sucesso!");
+                listarVendas();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao deletar o vendedor!");
+            }
+        }
+    }//GEN-LAST:event_btnDeletarVendaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -261,6 +299,7 @@ public class vendaGerarXML extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnDeletarVenda;
     private javax.swing.JButton btnGerarXML;
     private javax.swing.JComboBox<String> cbxVenda;
     private javax.swing.JLabel jLabel2;

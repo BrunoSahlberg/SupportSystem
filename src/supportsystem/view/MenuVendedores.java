@@ -5,16 +5,13 @@
  */
 package supportsystem.view;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import supportsystem.dao.ClienteDAO;
-import supportsystem.dao.ClienteDTO;
-import supportsystem.dao.ProdutoDAO;
-import supportsystem.dao.ProdutoDTO;
 import supportsystem.dao.VendedorDAO;
+import supportsystem.dao.VendedorDTO;
 import supportsystem.logging.LogController;
-import supportsystem.models.Cliente;
 import supportsystem.models.Vendedor;
 
 /**
@@ -43,14 +40,14 @@ public class MenuVendedores extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnDeletarVendedor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaVendedores = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Support System - Menu Clientes");
+        setTitle("Support System - Menu Vendedores");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -70,10 +67,10 @@ public class MenuVendedores extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Deletar Vendedor");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnDeletarVendedor.setText("Deletar Vendedor");
+        btnDeletarVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnDeletarVendedorActionPerformed(evt);
             }
         });
 
@@ -124,7 +121,7 @@ public class MenuVendedores extends javax.swing.JFrame {
                     .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -141,7 +138,7 @@ public class MenuVendedores extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7)
+                        .addComponent(btnDeletarVendedor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,11 +161,27 @@ public class MenuVendedores extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        DelVendedor frame = new DelVendedor();
-        LogController.createLog("Abrindo página de remoção de vendedor", "I");
-        frame.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnDeletarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarVendedorActionPerformed
+        int idVendedorSelecionado;
+        int aprovacao;
+        aprovacao = JOptionPane.showConfirmDialog(null, "Deletar vendedor selecionado?","Atenção!", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (tabelaVendedores.getSelectedRow() != -1 && aprovacao == 0){
+            VendedorDAO vendedordao = new VendedorDAO();
+            VendedorDTO vendedordto = new  VendedorDTO();
+            
+            idVendedorSelecionado = (int) tabelaVendedores.getValueAt(tabelaVendedores.getSelectedRow(),0);
+            vendedordto.setId_vendedor(idVendedorSelecionado);            
+
+            try {
+                vendedordao.deleteVendedor(vendedordto);
+                JOptionPane.showMessageDialog(null, "Vendedor deletado com sucesso!");
+                listarVendedores();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao deletar o vendedor!");
+            }
+        }
+    }//GEN-LAST:event_btnDeletarVendedorActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         LogController.createLog("Listando Vendedores", "I");
@@ -219,9 +232,9 @@ public class MenuVendedores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnDeletarVendedor;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

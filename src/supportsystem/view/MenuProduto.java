@@ -5,7 +5,9 @@
  */
 package supportsystem.view;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import supportsystem.dao.ProdutoDAO;
 import supportsystem.dao.ProdutoDTO;
@@ -37,7 +39,7 @@ public class MenuProduto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnDeletarProduto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProdutos = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
@@ -63,10 +65,10 @@ public class MenuProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Deletar Produtos");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnDeletarProduto.setText("Deletar Produtos");
+        btnDeletarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnDeletarProdutoActionPerformed(evt);
             }
         });
 
@@ -112,7 +114,7 @@ public class MenuProduto extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -130,7 +132,7 @@ public class MenuProduto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7)
+                        .addComponent(btnDeletarProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -149,11 +151,27 @@ public class MenuProduto extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        DelProduto frame = new DelProduto();
-        LogController.createLog("Abrindo página de remoção de produto", "I");
-        frame.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
+        int idProdutoSelecionado;
+        int aprovacao;
+        aprovacao = JOptionPane.showConfirmDialog(null, "Deletar produto selecionado?","Atenção!", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (tabelaProdutos.getSelectedRow() != -1 && aprovacao == 0){
+            ProdutoDAO produtodao = new ProdutoDAO();
+            ProdutoDTO  produtodto = new  ProdutoDTO();
+            
+            idProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(),0);
+            produtodto.setId_item(idProdutoSelecionado);            
+
+            try {
+                produtodao.deleteProduto(produtodto);
+                JOptionPane.showMessageDialog(null, "Produto deletado com sucesso!");
+                listarProdutos();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao deletar produto!");
+            }
+        }
+    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         LogController.createLog("Listando produtos", "I");
@@ -198,9 +216,9 @@ public class MenuProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnDeletarProduto;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaProdutos;
