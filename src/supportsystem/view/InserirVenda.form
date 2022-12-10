@@ -33,17 +33,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="FuncionarioLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ClienteLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ProdutoLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="ClienteLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ValorVendaLabel" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="ProdutoLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ValorVendaLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FuncionarioLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="FuncionarioLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -52,6 +53,7 @@
                           <Component id="cbxProduto" alignment="0" pref="137" max="32767" attributes="0"/>
                           <Component id="cbxVendedor" max="32767" attributes="0"/>
                           <Component id="cbxCliente" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbxServico" alignment="0" pref="137" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -71,27 +73,32 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ClienteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbxCliente" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="FuncionarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbxVendedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="FuncionarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ProdutoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbxProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="FuncionarioLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbxServico" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="ProdutoLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbxProduto" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ValorVendaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbxQtd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ValorVendaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace pref="56" max="32767" attributes="0"/>
               <Component id="btnValidar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
@@ -190,6 +197,27 @@
           <Font name="Segoe UI" size="24" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Inserir Venda"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbxServico">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="1">
+            <StringItem index="0" value="Selecione"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbxServicoItemStateChanged"/>
+        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="cbxServicoAncestorAdded"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="FuncionarioLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Servi&#xe7;o:"/>
       </Properties>
     </Component>
   </SubComponents>

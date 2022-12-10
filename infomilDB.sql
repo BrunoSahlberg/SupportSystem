@@ -78,6 +78,13 @@ FOREIGN KEY(id_item)
         references ITEM(id_ITEM)
 	on update restrict
 	on delete restrict);
+    
+/* Cria tabela SERVIÇO*/
+CREATE TABLE servico(
+	id_servico   INT  		NOT NULL  auto_increment,
+	descricao_servico   varchar(60) 	not null,
+	preco_servico    decimal(9,2) not null,
+PRIMARY KEY(id_servico));
 
 /* grupo 1 informatica */
 insert into item values(1,'SSD Kingston 240GB',179.99,20);
@@ -107,5 +114,6 @@ insert into vendedor values (1,'Joao',5.00);
 insert into vendedor values (2,'Bruninho',10.00);
 insert into vendedor values (3,'Fogaca',8.00);
 
+insert into servico values (1,'Formatação PC', 90.00);
 
 

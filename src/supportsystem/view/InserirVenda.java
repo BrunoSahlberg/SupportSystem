@@ -13,12 +13,15 @@ import javax.swing.table.DefaultTableModel;
 import supportsystem.dao.ClienteDAO;
 import supportsystem.dao.ProdutoDAO;
 import supportsystem.dao.ProdutoDTO;
+import supportsystem.dao.ServicoDAO;
+import supportsystem.dao.ServicoDTO;
 import supportsystem.dao.VendaDAO;
 import supportsystem.dao.VendaDTO;
 import supportsystem.dao.VendedorDAO;
 import supportsystem.logging.LogController;
 import supportsystem.models.Cliente;
 import supportsystem.models.Produto;
+import supportsystem.models.Servico;
 import supportsystem.models.Vendedor;
 
 /**
@@ -53,6 +56,8 @@ public class InserirVenda extends javax.swing.JFrame {
         btnValidar = new javax.swing.JButton();
         cbxQtd = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        cbxServico = new javax.swing.JComboBox();
+        FuncionarioLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Vendas");
@@ -120,6 +125,24 @@ public class InserirVenda extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Inserir Venda");
 
+        cbxServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
+        cbxServico.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxServicoItemStateChanged(evt);
+            }
+        });
+        cbxServico.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbxServicoAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        FuncionarioLabel1.setText("Serviço:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,21 +152,23 @@ public class InserirVenda extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(FuncionarioLabel)
-                                    .addComponent(ClienteLabel)
-                                    .addComponent(ProdutoLabel))
+                                .addGap(98, 98, 98)
+                                .addComponent(ClienteLabel)
                                 .addGap(20, 20, 20))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(ValorVendaLabel)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ProdutoLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(ValorVendaLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(FuncionarioLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(FuncionarioLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxQtd, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxProduto, 0, 137, Short.MAX_VALUE)
                             .addComponent(cbxVendedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cbxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxServico, 0, 137, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -156,23 +181,27 @@ public class InserirVenda extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ClienteLabel)
                     .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FuncionarioLabel)
-                    .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FuncionarioLabel))
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FuncionarioLabel1)
+                    .addComponent(cbxServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ProdutoLabel)
                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ValorVendaLabel)
-                    .addComponent(cbxQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(cbxQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ValorVendaLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btnValidar)
                 .addGap(31, 31, 31))
         );
@@ -242,8 +271,8 @@ public class InserirVenda extends javax.swing.JFrame {
         nome_item = produto.getNome_item();
         preco_item = produto.getPreco();
 
-        qtd = cbxQtd.getSelectedIndex()+1;
-          
+        qtd = cbxQtd.getSelectedIndex() + 1;
+
         valor_total = preco_item * Integer.valueOf(qtd);
 
         qtd_estoque = produto.getQtd() - Integer.valueOf(qtd);
@@ -269,7 +298,7 @@ public class InserirVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnValidarActionPerformed
 
     private void cbxProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProdutoActionPerformed
-        
+
     }//GEN-LAST:event_cbxProdutoActionPerformed
 
     private void cbxProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxProdutoItemStateChanged
@@ -281,6 +310,22 @@ public class InserirVenda extends javax.swing.JFrame {
             cbxQtd.addItem(i);
         }
     }//GEN-LAST:event_cbxProdutoItemStateChanged
+
+    private void cbxServicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxServicoItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxServicoItemStateChanged
+
+    private void cbxServicoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbxServicoAncestorAdded
+        ServicoDAO dao = new ServicoDAO();
+        cbxServico.removeAll();
+        try {
+            for (Servico s : dao.listarServicoVenda()) {
+                cbxProduto.addItem(s);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro");
+        }
+    }//GEN-LAST:event_cbxServicoAncestorAdded
     /**
      * @param args the command line arguments
      */
@@ -327,12 +372,14 @@ public class InserirVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ClienteLabel;
     private javax.swing.JLabel FuncionarioLabel;
+    private javax.swing.JLabel FuncionarioLabel1;
     private javax.swing.JLabel ProdutoLabel;
     private javax.swing.JLabel ValorVendaLabel;
     private javax.swing.JButton btnValidar;
     private javax.swing.JComboBox cbxCliente;
     private javax.swing.JComboBox cbxProduto;
     private javax.swing.JComboBox cbxQtd;
+    private javax.swing.JComboBox cbxServico;
     private javax.swing.JComboBox cbxVendedor;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
