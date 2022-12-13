@@ -9,22 +9,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import supportsystem.dao.ProdutoDAO;
-import supportsystem.dao.ProdutoDTO;
+import supportsystem.dao.ServicoDAO;
+import supportsystem.dao.ServicoDTO;
 import supportsystem.logging.LogController;
 
 /**
  *
  * @author Bruno
  */
-public class MenuProduto extends javax.swing.JFrame {
+public class MenuServicos extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuProduto() {
+    public MenuServicos() {
         initComponents();
-        listarProdutos();
+        listarServicos();
     }
 
     /**
@@ -37,24 +37,24 @@ public class MenuProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnCadastrarServicos = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        btnDeletarProduto = new javax.swing.JButton();
+        btnDeletarServicos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProdutos = new javax.swing.JTable();
+        tabelaServicos = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Support System - Menu Produtos");
+        setTitle("Support System - Menu Serviços");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Produtos");
+        jLabel1.setText("Serviços");
 
-        jButton3.setText("Cadastrar Produtos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarServicos.setText("Cadastrar Servicos");
+        btnCadastrarServicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCadastrarServicosActionPerformed(evt);
             }
         });
 
@@ -65,14 +65,14 @@ public class MenuProduto extends javax.swing.JFrame {
             }
         });
 
-        btnDeletarProduto.setText("Deletar Produtos");
-        btnDeletarProduto.addActionListener(new java.awt.event.ActionListener() {
+        btnDeletarServicos.setText("Deletar Servicos");
+        btnDeletarServicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeletarProdutoActionPerformed(evt);
+                btnDeletarServicosActionPerformed(evt);
             }
         });
 
-        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaServicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,7 +80,7 @@ public class MenuProduto extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID Produto", "Nome Produto", "Valor(un)", "Estoque"
+                "ID Serviço", "Descrição Serviço", "Preço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -91,7 +91,7 @@ public class MenuProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tabelaProdutos);
+        jScrollPane1.setViewportView(tabelaServicos);
 
         btnAtualizar.setText("Atualizar");
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,8 +114,8 @@ public class MenuProduto extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeletarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletarServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrarServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -130,9 +130,9 @@ public class MenuProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(btnCadastrarServicos)
                         .addGap(18, 18, 18)
-                        .addComponent(btnDeletarProduto)
+                        .addComponent(btnDeletarServicos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -146,41 +146,41 @@ public class MenuProduto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CadProduto frame = new CadProduto();
+    private void btnCadastrarServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarServicosActionPerformed
+        CadServico frame = new CadServico();
         frame.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCadastrarServicosActionPerformed
 
-    private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
-        int idProdutoSelecionado;
+    private void btnDeletarServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarServicosActionPerformed
+        int idServicoSelecionado;
         int aprovacao;
 
-        if (tabelaProdutos.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Selecione um produto!");
+        if (tabelaServicos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um serviço!");
         } else {
 
-            aprovacao = JOptionPane.showConfirmDialog(null, "Deletar produto selecionado?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
-            if (tabelaProdutos.getSelectedRow() != -1) {
-                ProdutoDAO produtodao = new ProdutoDAO();
-                ProdutoDTO produtodto = new ProdutoDTO();
+            aprovacao = JOptionPane.showConfirmDialog(null, "Deletar serviço selecionado?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
+            if (tabelaServicos.getSelectedRow() != -1) {
+                ServicoDAO servicodao = new ServicoDAO();
+                ServicoDTO servicodto = new ServicoDTO();
 
-                idProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
-                produtodto.setId_item(idProdutoSelecionado);
+                idServicoSelecionado = (int) tabelaServicos.getValueAt(tabelaServicos.getSelectedRow(), 0);
+                servicodto.setId_servico(idServicoSelecionado);
 
                 try {
-                    produtodao.deleteProduto(produtodto);
-                    JOptionPane.showMessageDialog(null, "Produto deletado com sucesso!");
-                    listarProdutos();
+                    servicodao.deleteServico(servicodto);
+                    JOptionPane.showMessageDialog(null, "Servico deletado com sucesso!");
+                    listarServicos();
                 } catch (SQLException ex) {
-                    System.out.println("Erro ao deletar produto!");
+                    System.out.println("Erro ao deletar servico!");
                 }
             }
         }
-    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
+    }//GEN-LAST:event_btnDeletarServicosActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        LogController.createLog("Listando produtos", "I");
-        listarProdutos();
+        LogController.createLog("Listando servicos", "I");
+        listarServicos();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
@@ -200,55 +200,55 @@ public class MenuProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuServicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuProduto().setVisible(true);
+                new MenuServicos().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
-    private javax.swing.JButton btnDeletarProduto;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCadastrarServicos;
+    private javax.swing.JButton btnDeletarServicos;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaProdutos;
+    private javax.swing.JTable tabelaServicos;
     // End of variables declaration//GEN-END:variables
 
-    private void listarProdutos() {
+    private void listarServicos() {
         try {
-            ProdutoDAO produtodao = new ProdutoDAO();
-            DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
+            ServicoDAO servicodao = new ServicoDAO();
+            DefaultTableModel model = (DefaultTableModel) tabelaServicos.getModel();
 
             model.setNumRows(0);
-            ArrayList<ProdutoDTO> lista = produtodao.listarProduto();
+            ArrayList<ServicoDTO> lista = servicodao.listarServicos();
 
             for (int i = 0; i < lista.size(); i++) {
                 model.addRow(new Object[]{
-                    lista.get(i).getId_item(),
-                    lista.get(i).getNome_item(),
-                    lista.get(i).getPreco(),
-                    lista.get(i).getQtde_produto()
-                });
+                    lista.get(i).getId_servico(),
+                    lista.get(i).getDescricao_servico(),
+                    lista.get(i).getPreco_servico(),});
             }
 
         } catch (Exception ex) {
-            System.out.println("Erro ao Listar Vendas");
-            LogController.createLog("Erro ao Listar Vendas", "W");
+            System.out.println("Erro ao Listar Servicos");
+            LogController.createLog("Erro ao Listar Servicos", "W");
         }
     }
 

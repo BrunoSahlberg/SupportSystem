@@ -15,19 +15,19 @@ public class CriarDocumentoXML {
     public static ArrayList<VendaDTO> main(ArrayList<VendaDTO> vendaXML) {
 
         Document doc = ManipuladorXML.newDocument();
-        
+
         // <venda> 
         Element venda = doc.createElement("Venda");
         doc.appendChild(venda);
         for (int i = 0; i < vendaXML.size(); i++) {
-        //transformar id_venda int to string
-        float y = vendaXML.get(i).getId_venda();
-        String idvenda = Integer.toString((int) y);
-        Element id_venda = doc.createElement("idVenda");
-        id_venda.setTextContent(idvenda);
-        venda.appendChild(id_venda);
+            //transformar id_venda int to string
+            float y = vendaXML.get(i).getId_venda();
+            String idvenda = Integer.toString((int) y);
+            Element id_venda = doc.createElement("idVenda");
+            id_venda.setTextContent(idvenda);
+            venda.appendChild(id_venda);
         }
-        
+
         //<vendedor>
         Element vendedor = doc.createElement("Vendedor");
         venda.appendChild(vendedor);
@@ -38,12 +38,12 @@ public class CriarDocumentoXML {
             Element idvendedor = doc.createElement("idVendedor");
             idvendedor.setTextContent(id_vendedor);
             vendedor.appendChild(idvendedor);
-             // <Nome vendedor>
+            // <Nome vendedor>
             Element nomevendedor = doc.createElement("Nome");
             nomevendedor.setTextContent(vendaXML.get(i).getNome_vendedor());
             vendedor.appendChild(nomevendedor);
         }
-        
+
         //<Cliente>
         Element cliente = doc.createElement("Cliente");
         venda.appendChild(cliente);
@@ -54,13 +54,23 @@ public class CriarDocumentoXML {
             Element idcliente = doc.createElement("idCliente");
             idcliente.setTextContent(id_cliente);
             cliente.appendChild(idcliente);
-             // <Nome vendedor>
+            // <Nome vendedor>
             Element nomecliente = doc.createElement("Nome");
             nomecliente.setTextContent(vendaXML.get(i).getNome_cliente());
             cliente.appendChild(nomecliente);
-        }        
-        
-         // <Produto> 
+        }
+        // <Serviço>
+        Element servico = doc.createElement("Servico");
+        venda.appendChild(servico);
+        for (int i = 0; i < vendaXML.size(); i++) {
+
+            // <Descrição>
+            Element descricao = doc.createElement("Descricao");
+            descricao.setTextContent(vendaXML.get(i).getDescricao_servico());
+            servico.appendChild(descricao);
+        }
+
+        // <Produto> 
         Element produto = doc.createElement("Produto");
         venda.appendChild(produto);
         for (int i = 0; i < vendaXML.size(); i++) {
@@ -77,12 +87,10 @@ public class CriarDocumentoXML {
             Element valor = doc.createElement("Valor_total_venda");
             valor.setTextContent(valvenda);
             produto.appendChild(valor);
-
-            //manipular nome venda
-            ManipuladorXML.writeXmlFile(doc, "./Venda.xml");
-
         }
-        
+        //manipular nome venda
+        ManipuladorXML.writeXmlFile(doc, "./Venda.xml");
+
         return null;
     }
 }

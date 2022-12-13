@@ -62,7 +62,7 @@ public class ServicoDAO {
             db.close();
         }
     }
-    
+
     public List<Servico> listarServicoVenda() throws SQLException {
         DataBase db = new DataBase();
         Statement stmt = null;
@@ -90,5 +90,23 @@ public class ServicoDAO {
         }
         return servicos;
 
+    }
+
+    public ArrayList<ServicoDTO> deleteServico(ServicoDTO servicodto) throws SQLException {
+        DataBase db = new DataBase();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            pstmt = db.getConnection().prepareStatement("delete from servico where id_servico = ?");
+            pstmt.setInt(1, servicodto.getId_servico());
+            pstmt.execute();
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            db.close();
+        }
+        return null;
     }
 }

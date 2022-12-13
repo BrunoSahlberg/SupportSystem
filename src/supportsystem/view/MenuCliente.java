@@ -183,21 +183,25 @@ public class MenuCliente extends javax.swing.JFrame {
     private void btnDeletarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarClienteActionPerformed
         int idClienteSelecionado;
         int aprovacao;
-        aprovacao = JOptionPane.showConfirmDialog(null, "Deletar cliente selecionado?","Atenção!", JOptionPane.OK_CANCEL_OPTION);
-        
-        if (tabelaClientes.getSelectedRow() != -1 && aprovacao == 0){
-            ClienteDAO clientedao = new ClienteDAO();
-            ClienteDTO clientedto = new ClienteDTO();
-            
-            idClienteSelecionado = (int) tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(),0);
-            clientedto.setId_cliente(idClienteSelecionado);            
+        if (tabelaClientes.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um cliente!");
+        } else {
 
-            try {
-                clientedao.deleteCliente(clientedto);
-                JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
-                listarClientes();
-            } catch (SQLException ex) {
-                System.out.println("Erro ao deletar cliente!");
+            aprovacao = JOptionPane.showConfirmDialog(null, "Deletar cliente selecionado?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
+            if (tabelaClientes.getSelectedRow() != -1 && aprovacao == 0) {
+                ClienteDAO clientedao = new ClienteDAO();
+                ClienteDTO clientedto = new ClienteDTO();
+
+                idClienteSelecionado = (int) tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0);
+                clientedto.setId_cliente(idClienteSelecionado);
+
+                try {
+                    clientedao.deleteCliente(clientedto);
+                    JOptionPane.showMessageDialog(null, "Cliente deletado com sucesso!");
+                    listarClientes();
+                } catch (SQLException ex) {
+                    System.out.println("Erro ao deletar cliente!");
+                }
             }
         }
     }//GEN-LAST:event_btnDeletarClienteActionPerformed

@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 //import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
+import supportsystem.view.vendaGerarXML;
 
 /**
  *
@@ -18,7 +18,13 @@ import org.junit.Ignore;
  */
 public class Test {
 
-    static float numero1, numero2;
+    float preco_item;
+    int qtd;
+    int qtd_estoque;
+
+    float preco_servico;
+
+    float valor_total;
 
     public Test() {
     }
@@ -39,15 +45,23 @@ public class Test {
     public void setUp() {
         System.out.println("setUp");
         //altere os números para produzir falhas
-        numero1 = 1.0f;
-        numero2 = 1.0f;
+        preco_item = 100.0f;
+        qtd = 0;
+        qtd_estoque = 2;
+
+        preco_servico = 90.0f;
+        valor_total = 0.00f;
     }
 
     @After
     public void tearDown() {
         System.out.println("tearDown");
-        numero1 = 0.0f;
-        numero2 = 0.0f;
+        preco_item = 100.0f;
+        qtd = 1;
+        qtd_estoque = 1;
+
+        preco_servico = 90.0f;
+        valor_total = 190.00f;
     }
 
     /**
@@ -81,21 +95,21 @@ public class Test {
 //        //assertTrue(result.equals(expResult));
 //    }
 //
-//    /**
-//     * Test of somar method, of class Utils.
+    /**
+     * Test of somar method, of class Utils.
 //     */
 //    @Test
-//    public void testSomar() {
-//        System.out.println("somar");
-//        Utils instance = null;
-//        float expResult = 2.0f;
-//        float result = instance.somar(numero1, numero2);
+//    public void testVenda() {
+//        System.out.println("Venda");
+//        vendaGerarXML instance = null;
+//        float expResult = 190.00f;
+//        float result = instance.preco_item);
 //        assertEquals(expResult, result, 0.0);
 //    }
-//
-//    /**
-//     * Test of subtrair method, of class Utils.
-//     */
+
+    /**
+     * Test of subtrair method, of class Utils.
+     */
 //    //@Ignore 
 //    @Test
 //    public void testSubtrair() {
@@ -129,5 +143,4 @@ public class Test {
 //        float result = instance.multiplicar(numero1, numero2);
 //        assertEquals(expResult, result, 0.0);
 //    }
-
 }

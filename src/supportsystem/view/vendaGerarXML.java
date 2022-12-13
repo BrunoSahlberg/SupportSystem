@@ -33,7 +33,6 @@ public class vendaGerarXML extends javax.swing.JFrame {
     public vendaGerarXML() {
         initComponents();
         listarVendas();
-        LogController.createLog("Arquivo XML da venda gerado", "I");
     }
 
     /**
@@ -66,7 +65,7 @@ public class vendaGerarXML extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID venda", "Cliente", "Vendedor", "Produto", "Valor Total"
+                "ID venda", "Cliente", "Vendedor", "Produto", "Serviço", "Valor Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -207,6 +206,7 @@ public class vendaGerarXML extends javax.swing.JFrame {
                 LogController.createLog("Erro ao gerar XML da venda" + ex.getMessage(), "W");
             }
         }
+         JOptionPane.showMessageDialog(null, "XML gerado com sucesso!");
 
     }//GEN-LAST:event_btnGerarXMLActionPerformed
 
@@ -322,6 +322,7 @@ public class vendaGerarXML extends javax.swing.JFrame {
                     lista.get(i).getNome_cliente(),
                     lista.get(i).getNome_vendedor(),
                     lista.get(i).getNome_item(),
+                    lista.get(i).getDescricao_servico(),
                     lista.get(i).getValor_venda()
                 });
             }

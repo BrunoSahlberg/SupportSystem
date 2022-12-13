@@ -19,13 +19,14 @@ public class VendaDAO {
         db.getConnection().setAutoCommit(false);
         try {
 
-            pstmt = db.getConnection().prepareStatement("INSERT INTO venda (id_cliente, id_vendedor, nome_cliente, nome_vendedor, nome_item, vl_total_venda) values (?, ?, ?, ?, ?, ?)");
+            pstmt = db.getConnection().prepareStatement("INSERT INTO venda (id_cliente, id_vendedor, nome_cliente, nome_vendedor, nome_item, descricao_servico, vl_total_venda) values (?, ?, ?, ?, ?, ?, ?)");
             pstmt.setInt(1, vendadto.getId_cliente());
             pstmt.setInt(2, vendadto.getId_vendedor());
             pstmt.setString(3, vendadto.getNome_cliente());
             pstmt.setString(4, vendadto.getNome_vendedor());
             pstmt.setString(5, vendadto.getNome_item());
-            pstmt.setFloat(6, vendadto.getValor_venda());
+            pstmt.setString(6, vendadto.getDescricao_servico());
+            pstmt.setFloat(7, vendadto.getValor_venda());
 
             pstmt.execute();
 
@@ -63,6 +64,7 @@ public class VendaDAO {
                 venda.setNome_cliente(rs.getString("nome_cliente"));
                 venda.setNome_vendedor(rs.getString("nome_vendedor"));
                 venda.setNome_item(rs.getString("nome_item"));
+                venda.setDescricao_servico(rs.getString("descricao_servico"));
                 venda.setValor_venda(rs.getInt("vl_total_venda"));
                 vendas.add(venda);
             }
@@ -98,6 +100,7 @@ public class VendaDAO {
                 venda.setNome_cliente(rs.getString("nome_cliente"));
                 venda.setNome_vendedor(rs.getString("nome_vendedor"));
                 venda.setNome_item(rs.getString("nome_item"));
+                venda.setDescricao_servico(rs.getString("descricao_servico"));
                 venda.setValor_venda(rs.getInt("vl_total_venda"));
                 vendaXML.add(venda);
             }

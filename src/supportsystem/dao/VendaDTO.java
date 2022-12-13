@@ -1,13 +1,16 @@
 package supportsystem.dao;
 
 public class VendaDTO {
+
     private int id_venda;
     private int id_cliente;
     private int id_vendedor;
     private String nome_cliente;
     private String nome_vendedor;
     private String nome_item;
+    private String descricao_servico;
     private float valor_venda;
+    private float preco_servico;
     private int qtd_estoque;
 
     public int getId_cliente() {
@@ -57,12 +60,12 @@ public class VendaDTO {
     public void setValor_venda(float valor_venda) {
         this.valor_venda = valor_venda;
     }
-    
-    public int getQuantidade_produto(){
+
+    public int getQuantidade_produto() {
         return qtd_estoque;
     }
-    
-    public void setQuantidade_produto(int qtd_estoque){
+
+    public void setQuantidade_produto(int qtd_estoque) {
         this.qtd_estoque = qtd_estoque;
     }
 
@@ -81,5 +84,21 @@ public class VendaDTO {
     public void setQtd_estoque(int qtd_estoque) {
         this.qtd_estoque = qtd_estoque;
     }
-    
+
+    public String getDescricao_servico() {
+        return descricao_servico;
+    }
+
+    public void setDescricao_servico(String descricao_servico) {
+        this.descricao_servico = descricao_servico;
+    }
+
+    public float getPreco_servico() {
+        return preco_servico;
+    }
+
+    public void setPreco_servico(float preco_servico) {
+        this.preco_servico = preco_servico;
+    }
+
 }

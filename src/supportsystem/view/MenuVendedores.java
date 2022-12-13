@@ -152,7 +152,7 @@ public class MenuVendedores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -164,21 +164,27 @@ public class MenuVendedores extends javax.swing.JFrame {
     private void btnDeletarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarVendedorActionPerformed
         int idVendedorSelecionado;
         int aprovacao;
-        aprovacao = JOptionPane.showConfirmDialog(null, "Deletar vendedor selecionado?","Atenção!", JOptionPane.OK_CANCEL_OPTION);
-        
-        if (tabelaVendedores.getSelectedRow() != -1 && aprovacao == 0){
-            VendedorDAO vendedordao = new VendedorDAO();
-            VendedorDTO vendedordto = new  VendedorDTO();
-            
-            idVendedorSelecionado = (int) tabelaVendedores.getValueAt(tabelaVendedores.getSelectedRow(),0);
-            vendedordto.setId_vendedor(idVendedorSelecionado);            
 
-            try {
-                vendedordao.deleteVendedor(vendedordto);
-                JOptionPane.showMessageDialog(null, "Vendedor deletado com sucesso!");
-                listarVendedores();
-            } catch (SQLException ex) {
-                System.out.println("Erro ao deletar o vendedor!");
+        if (tabelaVendedores.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um vendedor!");
+        } else {
+
+            aprovacao = JOptionPane.showConfirmDialog(null, "Deletar vendedor selecionado?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
+
+            if (tabelaVendedores.getSelectedRow() != 0 && aprovacao == 0) {
+                VendedorDAO vendedordao = new VendedorDAO();
+                VendedorDTO vendedordto = new VendedorDTO();
+
+                idVendedorSelecionado = (int) tabelaVendedores.getValueAt(tabelaVendedores.getSelectedRow(), 0);
+                vendedordto.setId_vendedor(idVendedorSelecionado);
+
+                try {
+                    vendedordao.deleteVendedor(vendedordto);
+                    JOptionPane.showMessageDialog(null, "Vendedor deletado com sucesso!");
+                    listarVendedores();
+                } catch (SQLException ex) {
+                    System.out.println("Erro ao deletar o vendedor!");
+                }
             }
         }
     }//GEN-LAST:event_btnDeletarVendedorActionPerformed
@@ -254,8 +260,7 @@ public class MenuVendedores extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     lista.get(i).getId_vendedor(),
                     lista.get(i).getNome_vendedor(),
-                    lista.get(i).getPc_comissao(),
-                });
+                    lista.get(i).getPc_comissao(),});
             }
 
         } catch (Exception ex) {

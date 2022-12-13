@@ -253,9 +253,11 @@ public class InserirVenda extends javax.swing.JFrame {
         String nome_cliente;
         String nome_vendedor;
         String nome_item;
+        String descricao_servico;
         int id_cliente;
         int id_vendedor;
         float preco_item;
+        float preco_servico;
         int qtd;
         float valor_total;
         int qtd_estoque;
@@ -263,6 +265,7 @@ public class InserirVenda extends javax.swing.JFrame {
         Cliente cliente = (Cliente) cbxCliente.getSelectedItem();
         Vendedor vendedor = (Vendedor) cbxVendedor.getSelectedItem();
         Produto produto = (Produto) cbxProduto.getSelectedItem();
+        Servico servico = (Servico) cbxServico.getSelectedItem();
 
         id_cliente = cliente.getId_cliente();
         nome_cliente = cliente.getNome_cliente();
@@ -270,10 +273,12 @@ public class InserirVenda extends javax.swing.JFrame {
         nome_vendedor = vendedor.getNome_vendedor();
         nome_item = produto.getNome_item();
         preco_item = produto.getPreco();
+        descricao_servico = servico.getDescricao_servico();
+        preco_servico = servico.getPreco_servico();
 
         qtd = cbxQtd.getSelectedIndex() + 1;
 
-        valor_total = preco_item * Integer.valueOf(qtd);
+        valor_total = ((preco_item * Integer.valueOf(qtd)) + preco_servico);
 
         qtd_estoque = produto.getQtd() - Integer.valueOf(qtd);
 
@@ -284,8 +289,10 @@ public class InserirVenda extends javax.swing.JFrame {
         vendadto.setNome_cliente(nome_cliente);
         vendadto.setNome_vendedor(nome_vendedor);
         vendadto.setNome_item(nome_item);
+        vendadto.setDescricao_servico(descricao_servico);
         vendadto.setValor_venda(valor_total);
         vendadto.setQuantidade_produto(qtd_estoque);
+        
 
         VendaDAO vendadao = new VendaDAO();
         try {
@@ -320,7 +327,7 @@ public class InserirVenda extends javax.swing.JFrame {
         cbxServico.removeAll();
         try {
             for (Servico s : dao.listarServicoVenda()) {
-                cbxProduto.addItem(s);
+                cbxServico.addItem(s);
             }
         } catch (SQLException ex) {
             System.out.println("Erro");

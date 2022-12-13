@@ -56,6 +56,7 @@ CREATE TABLE VENDA (
 	nome_vendedor varchar(50) 	not null,
 	nome_cliente   varchar(50) 	not null,
     nome_item varchar(50) not null,
+    descricao_servico varchar(50) not null,
 	vl_total_venda    decimal(9,2),
 PRIMARY KEY(id_venda),
 FOREIGN KEY(id_cliente) 
@@ -87,6 +88,7 @@ CREATE TABLE servico(
 PRIMARY KEY(id_servico));
 
 /* grupo 1 informatica */
+insert into item values (-1, 'Sem produto', 0.0, 999);
 insert into item values(1,'SSD Kingston 240GB',179.99,20);
 insert into item values(2,'i7 9700kf',849.99,10);
 insert into item values(3,'Placa Mae b450 steel',799.00,17);
@@ -114,6 +116,7 @@ insert into vendedor values (1,'Joao',5.00);
 insert into vendedor values (2,'Bruninho',10.00);
 insert into vendedor values (3,'Fogaca',8.00);
 
+insert into servico values (-1,'Sem servico', 0.0);
 insert into servico values (1,'Formatação PC', 90.00);
 
 

@@ -41,7 +41,33 @@ public class VendedorDAO {
         return vendedores;
 
     }
-    
+
+    public boolean validaVendedor(Vendedor vendedor) throws SQLException {
+        DataBase db = new DataBase();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        if (vendedor.getPc_comissao() >= 60) {
+            System.out.println("Erro! Porcentagem deve ser menor que 60%!");
+            return false;
+        } else{
+
+            try {
+                pstmt = db.getConnection().prepareStatement("INSERT INTO vendedor (nome_vendedor, pc_comissao) VALUES (?, ?)");
+                pstmt.setString(1, vendedor.getNome_vendedor());
+                pstmt.setInt(2, vendedor.getPc_comissao());
+                pstmt.execute();
+
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            } finally {
+                db.close();
+            }
+            System.out.println("Inserção realizada!");
+        }
+        return true;
+    }
+
     public void inserirVendedor(Vendedor vendedor) throws SQLException {
         DataBase db = new DataBase();
         PreparedStatement pstmt = null;
@@ -50,7 +76,7 @@ public class VendedorDAO {
         try {
             pstmt = db.getConnection().prepareStatement("INSERT INTO vendedor (nome_vendedor, pc_comissao) VALUES (?, ?)");
             pstmt.setString(1, vendedor.getNome_vendedor());
-            pstmt.setInt(2,vendedor.getPc_comissao());
+            pstmt.setInt(2, vendedor.getPc_comissao());
             pstmt.execute();
 
         } catch (SQLException ex) {
@@ -59,7 +85,7 @@ public class VendedorDAO {
             db.close();
         }
     }
-    
+
     public ArrayList<VendedorDTO> deleteVendedor(VendedorDTO vendedordto) throws SQLException {
         DataBase db = new DataBase();
         PreparedStatement pstmt = null;
@@ -67,7 +93,7 @@ public class VendedorDAO {
 
         try {
             pstmt = db.getConnection().prepareStatement("delete from vendedor where id_vendedor = ?");
-            pstmt.setInt(1,vendedordto.getId_vendedor());
+            pstmt.setInt(1, vendedordto.getId_vendedor());
             pstmt.execute();
 
         } catch (SQLException ex) {
