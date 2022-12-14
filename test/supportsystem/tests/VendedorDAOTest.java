@@ -5,8 +5,6 @@
 package supportsystem.tests;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,7 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import supportsystem.dao.VendedorDAO;
-import supportsystem.dao.VendedorDTO;
 import supportsystem.models.Vendedor;
 
 /**
@@ -43,21 +40,35 @@ public class VendedorDAOTest {
     }
 
     @Test
-    public void testValidaVendedor() throws SQLException {
-        System.out.println("Valida comissão e inserção do vendedor");
+    public void testValidaComissao() throws SQLException {
+        System.out.println("Comissão:");
         Vendedor vendedor = new Vendedor();
         VendedorDAO instance = new VendedorDAO();
 
-        vendedor.setNome_vendedor("Teste");
-
         // Alterar porcentagem de comissão para testar, >=60 causa erro.
-        vendedor.setPc_comissao(90);
+        vendedor.setPc_comissao(40);
+
+        if (instance.validaComissao(vendedor)) {
+            System.out.println("Teste de comissão validado!");
+        } else {
+            fail("Erro! Não foi possível atribuir esta comissão, pois porcentagem >= 60");
+        }
+    }
+
+    @Test
+    public void testValidaVendedor() throws SQLException {
+        System.out.println("Inserção:");
+        Vendedor vendedor = new Vendedor();
+        VendedorDAO instance = new VendedorDAO();
+
+        vendedor.setId_vendedor(50);
+        vendedor.setNome_vendedor("Teste");
+        vendedor.setPc_comissao(40);
 
         if (instance.validaVendedor(vendedor)) {
-            System.out.println("Teste validado!");
+            System.out.println("Teste de inserção validado!");
         } else {
-            fail("Erro! Não foi possível inserir vendedor, pois porcentagem >= 60");
+            fail("Erro! Não foi possível inserir vendedor.");
         }
-
     }
 }

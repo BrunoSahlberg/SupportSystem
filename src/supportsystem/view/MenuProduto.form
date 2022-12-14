@@ -36,10 +36,11 @@
                   <Component id="jScrollPane1" min="-2" pref="507" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnDeletarProduto" min="-2" pref="166" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="166" max="-2" attributes="0"/>
-                  <Component id="jButton6" min="-2" pref="166" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnDeletarProduto" pref="166" max="32767" attributes="0"/>
+                  <Component id="jButton3" pref="166" max="32767" attributes="0"/>
+                  <Component id="jButton6" pref="166" max="32767" attributes="0"/>
+                  <Component id="btnAlterarProduto" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
@@ -60,6 +61,8 @@
                       <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDeletarProduto" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnAlterarProduto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -133,6 +136,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtualizarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAlterarProduto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Alterar Produto"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarProdutoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

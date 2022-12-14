@@ -7,10 +7,8 @@ package supportsystem.view;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import supportsystem.dao.ClienteDAO;
 import supportsystem.dao.VendedorDAO;
 import supportsystem.logging.LogController;
-import supportsystem.models.Cliente;
 import supportsystem.models.Vendedor;
 
 /**

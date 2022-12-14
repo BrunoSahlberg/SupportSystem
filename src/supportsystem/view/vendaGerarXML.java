@@ -10,16 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import supportsystem.dao.ClienteDAO;
-import supportsystem.dao.ProdutoDAO;
 import supportsystem.dao.VendaDAO;
 import supportsystem.dao.VendaDTO;
-import supportsystem.dao.VendedorDAO;
-import supportsystem.dao.VendedorDTO;
 import supportsystem.logging.LogController;
-import supportsystem.models.Cliente;
-import supportsystem.models.Venda;
-import supportsystem.models.Vendedor;
 
 /**
  *

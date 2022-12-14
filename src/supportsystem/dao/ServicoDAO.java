@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import supportsystem.database.DataBase;
 import supportsystem.logging.LogController;
-import supportsystem.models.Produto;
 import supportsystem.models.Servico;
 
 public class ServicoDAO {

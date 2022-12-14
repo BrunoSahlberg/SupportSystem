@@ -6,7 +6,6 @@ import supportsystem.models.Produto;
 import java.sql.*;
 import java.util.ArrayList;
 import supportsystem.logging.LogController;
-import supportsystem.models.Cliente;
 
 public class ProdutoDAO {
 
@@ -38,8 +37,7 @@ public class ProdutoDAO {
         return produtos;
 
     }
-    
-    
+
     public void inserirProduto(Produto produto) throws SQLException {
         DataBase db = new DataBase();
         PreparedStatement pstmt = null;
@@ -48,8 +46,8 @@ public class ProdutoDAO {
         try {
             pstmt = db.getConnection().prepareStatement("INSERT INTO item (nome_item, preco, qtde_estoque) VALUES (?, ?, ?)");
             pstmt.setString(1, produto.getNome_item());
-            pstmt.setFloat(2,produto.getPreco());
-            pstmt.setInt(3,produto.getQtd());
+            pstmt.setFloat(2, produto.getPreco());
+            pstmt.setInt(3, produto.getQtd());
             pstmt.execute();
 
         } catch (SQLException ex) {
@@ -58,12 +56,7 @@ public class ProdutoDAO {
             db.close();
         }
     }
-    
-    /**
-     *
-     * @return
-     * @throws SQLException
-     */
+
     public List<Produto> listarProdutoVenda() throws SQLException {
         DataBase db = new DataBase();
         Statement stmt = null;
@@ -93,7 +86,7 @@ public class ProdutoDAO {
         return produtos;
 
     }
-    
+
     public ArrayList<ProdutoDTO> deleteProduto(ProdutoDTO produtodto) throws SQLException {
         DataBase db = new DataBase();
         PreparedStatement pstmt = null;
@@ -101,7 +94,7 @@ public class ProdutoDAO {
 
         try {
             pstmt = db.getConnection().prepareStatement("delete from item where id_item = ?");
-            pstmt.setInt(1,produtodto.getId_item());
+            pstmt.setInt(1, produtodto.getId_item());
             pstmt.execute();
 
         } catch (SQLException ex) {
@@ -112,4 +105,25 @@ public class ProdutoDAO {
         return null;
     }
 
+    public void alterarProduto(ProdutoDTO produtodto) throws SQLException {
+        DataBase db = new DataBase();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            pstmt = db.getConnection().prepareStatement("update item set nome_item = ?, preco = ?, qtd_estoque = ? where id_item = ?");
+            pstmt.setString(1, produtodto.getNome_item());
+            pstmt.setInt(2, (int) produtodto.getPreco());
+            pstmt.setInt(3, produtodto.getQtde_produto());
+            pstmt.setInt(4, produtodto.getId_item());
+            pstmt.execute();
+            System.out.println(pstmt);
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            LogController.createLog("Erro ao conectar-se na tabela ITEM do banco de dados. " + ex.getMessage(), "S");
+        } finally {
+            db.close();
+        }
+    }
 }

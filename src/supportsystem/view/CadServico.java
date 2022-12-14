@@ -5,16 +5,10 @@
  */
 package supportsystem.view;
 
-import java.io.File;
 import java.sql.SQLException;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import supportsystem.createXML.LerValoresXML;
-import supportsystem.dao.ProdutoDAO;
 import supportsystem.dao.ServicoDAO;
 import supportsystem.logging.LogController;
-import supportsystem.models.Produto;
 import supportsystem.models.Servico;
 
 /**

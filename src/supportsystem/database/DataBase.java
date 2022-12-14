@@ -3,8 +3,6 @@ package supportsystem.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import supportsystem.logging.LogController;
 
 public class DataBase {
@@ -16,7 +14,7 @@ public class DataBase {
 
     private final String DATABASE_URL = "jdbc:mysql://localhost:3306/infomil";
     static final String USERNAME = "root";
-    static final String PASSWORD = "root";
+    static final String PASSWORD = "";
 
     public DataBase(String url, String userName, String password) {
         this.url = url;

@@ -43,6 +43,7 @@ public class MenuProduto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProdutos = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
+        btnAlterarProduto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support System - Menu Produtos");
@@ -100,6 +101,13 @@ public class MenuProduto extends javax.swing.JFrame {
             }
         });
 
+        btnAlterarProduto.setText("Alterar Produto");
+        btnAlterarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,10 +121,11 @@ public class MenuProduto extends javax.swing.JFrame {
                         .addComponent(btnAtualizar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeletarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDeletarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(btnAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,6 +142,8 @@ public class MenuProduto extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(btnDeletarProduto)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAlterarProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -183,6 +194,40 @@ public class MenuProduto extends javax.swing.JFrame {
         listarProdutos();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
+//        int idProdutoSelecionado;
+//        String nomeProdutoSelecionado;
+//        float precoProdutoSelecionado;
+//        int qtdEstoqueProdutoSelecionado;
+//
+//        if (tabelaProdutos.getSelectedRow() == -1) {
+//            JOptionPane.showMessageDialog(null, "Selecione um produto!");
+//        } else {
+//            if (tabelaProdutos.getSelectedRow() != -1) {
+//                ProdutoDAO produtodao = new ProdutoDAO();
+//                ProdutoDTO produtodto = new ProdutoDTO();
+//
+//                idProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
+//                nomeProdutoSelecionado = (String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1);
+//                precoProdutoSelecionado = (float) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2);
+//                qtdEstoqueProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3);
+//
+//                produtodto.setId_item(idProdutoSelecionado);
+//                produtodto.setNome_item(nomeProdutoSelecionado);
+//                produtodto.setPreco(precoProdutoSelecionado);
+//                produtodto.setQtde_produto(qtdEstoqueProdutoSelecionado);
+//
+//                try {
+//                    produtodao.alterarProduto(produtodto);
+//                    JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+//                    listarProdutos();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erro ao alterar produto!");
+//                }
+//            }
+//        }
+    }//GEN-LAST:event_btnAlterarProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +265,7 @@ public class MenuProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarProduto;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnDeletarProduto;
     private javax.swing.JButton jButton3;
