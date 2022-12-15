@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import supportsystem.dao.VendedorDAO;
 import supportsystem.dao.VendedorDTO;
 import supportsystem.logging.LogController;
+import supportsystem.models.Produto;
 import supportsystem.models.Vendedor;
 
 /**
@@ -45,6 +46,7 @@ public class MenuVendedores extends javax.swing.JFrame {
         tabelaVendedores = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support System - Menu Vendedores");
@@ -104,6 +106,13 @@ public class MenuVendedores extends javax.swing.JFrame {
 
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
 
+        jButton1.setText("Alterar Vendedor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,10 +129,11 @@ public class MenuVendedores extends javax.swing.JFrame {
                         .addComponent(btnAtualizar))
                     .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeletarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDeletarVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -139,6 +149,8 @@ public class MenuVendedores extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(btnDeletarVendedor)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,6 +206,22 @@ public class MenuVendedores extends javax.swing.JFrame {
         listarVendedores();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int idVendedorSelecionado;
+        Vendedor vendedor = new Vendedor();
+
+        vendedor.setId_vendedor((int) tabelaVendedores.getValueAt(tabelaVendedores.getSelectedRow(), 0));
+        vendedor.setNome_vendedor((String) tabelaVendedores.getValueAt(tabelaVendedores.getSelectedRow(), 1));
+        vendedor.setPc_comissao((int) tabelaVendedores.getValueAt(tabelaVendedores.getSelectedRow(), 2));
+
+        if (tabelaVendedores.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um vendedor!");
+        } else {
+            EditVendedor frame = new EditVendedor(vendedor);
+            frame.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -239,6 +267,7 @@ public class MenuVendedores extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnDeletarVendedor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;

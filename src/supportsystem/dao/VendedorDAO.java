@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import supportsystem.database.DataBase;
 import supportsystem.logging.LogController;
+import supportsystem.models.Produto;
 import supportsystem.models.Vendedor;
 
 public class VendedorDAO {
@@ -42,13 +43,9 @@ public class VendedorDAO {
     }
 
     public boolean validaComissao(Vendedor vendedor) throws SQLException {
-        boolean comissaoValidada;
         if (vendedor.getPc_comissao() >= 60) {
-            System.out.println("Erro! Porcentagem deve ser menor que 60%!");
-            comissaoValidada = false;
             return false;
         } else {
-            comissaoValidada = true;
             return true;
         }
     }
@@ -58,21 +55,23 @@ public class VendedorDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        try {
-            pstmt = db.getConnection().prepareStatement("INSERT INTO vendedor (id_vendedor, nome_vendedor, pc_comissao) VALUES (?, ?, ?)");
-            pstmt.setInt(1, vendedor.getId_vendedor());
-            pstmt.setString(2, vendedor.getNome_vendedor());
-            pstmt.setInt(3, vendedor.getPc_comissao());
-            pstmt.execute();
+        if (validaComissao(vendedor) == true) {
+            try {
+                pstmt = db.getConnection().prepareStatement("INSERT INTO vendedor (id_vendedor, nome_vendedor, pc_comissao) VALUES (?, ?, ?)");
+                pstmt.setInt(1, vendedor.getId_vendedor());
+                pstmt.setString(2, vendedor.getNome_vendedor());
+                pstmt.setInt(3, vendedor.getPc_comissao());
+                pstmt.execute();
 
-            pstmt = db.getConnection().prepareStatement("delete from vendedor where id_vendedor = ?");
-            pstmt.setInt(1, vendedor.getId_vendedor());
-            pstmt.execute();
+                pstmt = db.getConnection().prepareStatement("delete from vendedor where id_vendedor = ?");
+                pstmt.setInt(1, vendedor.getId_vendedor());
+                pstmt.execute();
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            db.close();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            } finally {
+                db.close();
+            }
         }
         return true;
     }
@@ -111,6 +110,26 @@ public class VendedorDAO {
             db.close();
         }
         return null;
+    }
+
+    public void alterarVendedor(Vendedor vendedor) throws SQLException {
+        DataBase db = new DataBase();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            pstmt = db.getConnection().prepareStatement("update vendedor set nome_vendedor = ?, pc_comissao= ? where id_vendedor = ?");
+            pstmt.setString(1, vendedor.getNome_vendedor());
+            pstmt.setInt(2, vendedor.getPc_comissao());
+            pstmt.setInt(3, vendedor.getId_vendedor());
+            pstmt.execute();
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            LogController.createLog("Erro ao conectar-se na tabela VENDEDOR do banco de dados. " + ex.getMessage(), "S");
+        } finally {
+            db.close();
+        }
     }
 
 }

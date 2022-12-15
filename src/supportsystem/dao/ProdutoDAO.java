@@ -105,19 +105,18 @@ public class ProdutoDAO {
         return null;
     }
 
-    public void alterarProduto(ProdutoDTO produtodto) throws SQLException {
+    public void alterarProduto(Produto produto) throws SQLException {
         DataBase db = new DataBase();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
-            pstmt = db.getConnection().prepareStatement("update item set nome_item = ?, preco = ?, qtd_estoque = ? where id_item = ?");
-            pstmt.setString(1, produtodto.getNome_item());
-            pstmt.setInt(2, (int) produtodto.getPreco());
-            pstmt.setInt(3, produtodto.getQtde_produto());
-            pstmt.setInt(4, produtodto.getId_item());
+            pstmt = db.getConnection().prepareStatement("update item set nome_item = ?, preco = ?, qtde_estoque = ? where id_item = ?");
+            pstmt.setString(1, produto.getNome_item());
+            pstmt.setInt(2, (int) produto.getPreco());
+            pstmt.setInt(3, produto.getQtd());
+            pstmt.setInt(4, produto.getId_item());
             pstmt.execute();
-            System.out.println(pstmt);
 
         } catch (SQLException ex) {
             System.out.println(ex);

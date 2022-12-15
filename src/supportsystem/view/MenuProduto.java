@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import supportsystem.dao.ProdutoDAO;
 import supportsystem.dao.ProdutoDTO;
 import supportsystem.logging.LogController;
+import supportsystem.models.Produto;
 
 /**
  *
@@ -165,19 +166,19 @@ public class MenuProduto extends javax.swing.JFrame {
     private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
         int idProdutoSelecionado;
         int aprovacao;
-
+        
         if (tabelaProdutos.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um produto!");
         } else {
-
+            
             aprovacao = JOptionPane.showConfirmDialog(null, "Deletar produto selecionado?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
-            if (tabelaProdutos.getSelectedRow() != -1) {
+            if (tabelaProdutos.getSelectedRow() != 0 && aprovacao == 0) {
                 ProdutoDAO produtodao = new ProdutoDAO();
                 ProdutoDTO produtodto = new ProdutoDTO();
-
+                
                 idProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
                 produtodto.setId_item(idProdutoSelecionado);
-
+                
                 try {
                     produtodao.deleteProduto(produtodto);
                     JOptionPane.showMessageDialog(null, "Produto deletado com sucesso!");
@@ -195,37 +196,20 @@ public class MenuProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
-//        int idProdutoSelecionado;
-//        String nomeProdutoSelecionado;
-//        float precoProdutoSelecionado;
-//        int qtdEstoqueProdutoSelecionado;
-//
-//        if (tabelaProdutos.getSelectedRow() == -1) {
-//            JOptionPane.showMessageDialog(null, "Selecione um produto!");
-//        } else {
-//            if (tabelaProdutos.getSelectedRow() != -1) {
-//                ProdutoDAO produtodao = new ProdutoDAO();
-//                ProdutoDTO produtodto = new ProdutoDTO();
-//
-//                idProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0);
-//                nomeProdutoSelecionado = (String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1);
-//                precoProdutoSelecionado = (float) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2);
-//                qtdEstoqueProdutoSelecionado = (int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3);
-//
-//                produtodto.setId_item(idProdutoSelecionado);
-//                produtodto.setNome_item(nomeProdutoSelecionado);
-//                produtodto.setPreco(precoProdutoSelecionado);
-//                produtodto.setQtde_produto(qtdEstoqueProdutoSelecionado);
-//
-//                try {
-//                    produtodao.alterarProduto(produtodto);
-//                    JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
-//                    listarProdutos();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erro ao alterar produto!");
-//                }
-//            }
-//        }
+        int idProdutoSelecionado;
+        Produto produto = new Produto();
+        
+        produto.setId_item((int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0));
+        produto.setNome_item((String) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1));
+        produto.setPreco((float) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2));
+        produto.setQtd((int) tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3));
+        
+        if (tabelaProdutos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto!");
+        } else {
+            EditProduto frame = new EditProduto(produto);
+            frame.setVisible(true);
+        }
     }//GEN-LAST:event_btnAlterarProdutoActionPerformed
 
     /**
@@ -279,10 +263,10 @@ public class MenuProduto extends javax.swing.JFrame {
         try {
             ProdutoDAO produtodao = new ProdutoDAO();
             DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
-
+            
             model.setNumRows(0);
             ArrayList<ProdutoDTO> lista = produtodao.listarProduto();
-
+            
             for (int i = 0; i < lista.size(); i++) {
                 model.addRow(new Object[]{
                     lista.get(i).getId_item(),
@@ -291,11 +275,11 @@ public class MenuProduto extends javax.swing.JFrame {
                     lista.get(i).getQtde_produto()
                 });
             }
-
+            
         } catch (Exception ex) {
             System.out.println("Erro ao Listar Vendas");
             LogController.createLog("Erro ao Listar Vendas", "W");
         }
     }
-
+    
 }

@@ -46,11 +46,12 @@ public class VendedorDAOTest {
         VendedorDAO instance = new VendedorDAO();
 
         // Alterar porcentagem de comissão para testar, >=60 causa erro.
-        vendedor.setPc_comissao(40);
+        vendedor.setPc_comissao(70);
 
         if (instance.validaComissao(vendedor)) {
             System.out.println("Teste de comissão validado!");
         } else {
+            System.out.println("Erro! Valor da comissão deve ser < 60.");
             fail("Erro! Não foi possível atribuir esta comissão, pois porcentagem >= 60");
         }
     }
@@ -61,7 +62,8 @@ public class VendedorDAOTest {
         Vendedor vendedor = new Vendedor();
         VendedorDAO instance = new VendedorDAO();
 
-        vendedor.setId_vendedor(50);
+        //Informações do vendedor
+        vendedor.setId_vendedor(99);
         vendedor.setNome_vendedor("Teste");
         vendedor.setPc_comissao(40);
 

@@ -160,7 +160,7 @@ public class MenuServicos extends javax.swing.JFrame {
         } else {
 
             aprovacao = JOptionPane.showConfirmDialog(null, "Deletar serviço selecionado?", "Atenção!", JOptionPane.OK_CANCEL_OPTION);
-            if (tabelaServicos.getSelectedRow() != -1) {
+            if (tabelaServicos.getSelectedRow() !=0 && aprovacao ==0) {
                 ServicoDAO servicodao = new ServicoDAO();
                 ServicoDTO servicodto = new ServicoDTO();
 
